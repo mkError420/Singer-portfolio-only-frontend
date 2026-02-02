@@ -33,7 +33,9 @@ const Home = () => {
             opacity: 1.5,
           }}
         >
-          <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4" type="video/mp4" />
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-clouds-and-blue-sky-2408-large.mp4" type="video/mp4" />
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         
@@ -247,6 +249,8 @@ const Home = () => {
             opacity: 0.3,
           }}
         >
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-music-band-playing-in-a-concert-4399-large.mp4" type="video/mp4" />
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
           <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
