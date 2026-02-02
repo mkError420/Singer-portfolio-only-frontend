@@ -6,6 +6,7 @@ import './styles/global.css';
 // Components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import Preloader from './components/Preloader';
 
 // Pages
 import Home from './pages/Home';
@@ -20,6 +21,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        <Preloader />
         <Navbar />
         <motion.main
           initial={{ opacity: 0, y: 20 }}

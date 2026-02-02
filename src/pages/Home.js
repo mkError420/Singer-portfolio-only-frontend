@@ -30,7 +30,7 @@ const Home = () => {
             height: '100%',
             objectFit: 'cover',
             zIndex: 1,
-            opacity: 2,
+            opacity: 1.5,
           }}
         >
           <source src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4" type="video/mp4" />

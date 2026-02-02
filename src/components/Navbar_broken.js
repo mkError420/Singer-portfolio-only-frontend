@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -326,7 +325,23 @@ const Navbar = () => {
             }
             
             .logo-text {
-              font-size: 1.5rem;
+              font-size: 1.4rem !important;
+            }
+            
+            .logo-icon {
+              width: 35px !important;
+              height: 35px !important;
+              font-size: 1.2rem !important;
+            }
+            
+            .mobile-menu-btn {
+              width: 45px !important;
+              height: 45px !important;
+            }
+            
+            .hamburger {
+              width: 20px !important;
+              height: 16px !important;
             }
           }
         `}
@@ -361,8 +376,6 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-                  onMouseEnter={() => setHoveredItem(item.path)}
-                  onMouseLeave={() => setHoveredItem(null)}
                 >
                   <span className="nav-item-icon">{item.icon}</span>
                   <span>{item.label}</span>
@@ -380,10 +393,6 @@ const Navbar = () => {
                         borderRadius: '2px',
                       }}
                     />
-                        padding: '0.5rem 0',
-                      }}>
-                      </div>
-                    </motion.div>
                   )}
                 </Link>
               ))}
@@ -426,10 +435,7 @@ const Navbar = () => {
                       color: location.pathname === item.path ? 'var(--accent-color)' : 'var(--text-primary)',
                       textDecoration: 'none',
                       fontWeight: 500,
-                      fontSize: {
-                        xs: '1rem',
-                        sm: '1rem'
-                      },
+                      fontSize: '1rem',
                       transition: 'color 0.3s ease',
                       borderLeft: '3px solid transparent',
                     }}

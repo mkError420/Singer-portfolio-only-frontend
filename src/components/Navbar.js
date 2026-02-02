@@ -27,12 +27,42 @@ const Navbar = () => {
     { path: '/contact', label: 'Contact', icon: '📧' },
   ];
 
+  const socialLinks = [
+    { name: 'Instagram', icon: '📷', url: 'https://instagram.com/artistname', color: '#E4405F' },
+    { name: 'Twitter', icon: '🐦', url: 'https://twitter.com/artistname', color: '#1DA1F2' },
+    { name: 'Facebook', icon: '📘', url: 'https://facebook.com/artistname', color: '#1877F2' },
+    { name: 'YouTube', icon: '📺', url: 'https://youtube.com/artistname', color: '#FF0000' },
+    { name: 'Spotify', icon: '🎧', url: 'https://spotify.com/artistname', color: '#1DB954' },
+  ];
+
   return (
     <>
       <style jsx>{`
         ${ButtonStyles}
         
         /* Enhanced Responsive Design */
+        
+        /* Large Display: 1200px and above - Full Width Navbar */
+        @media (min-width: 1200px) {
+          .navbar-container {
+            width: 100%;
+            padding: 0 3rem;
+          }
+          
+          .navbar-content {
+            justify-content: flex-start;
+            gap: 3rem;
+          }
+          
+          .desktop-nav {
+            margin-left: auto;
+            margin-right: 2rem;
+          }
+          
+          .social-icons-desktop {
+            margin-left: 0;
+          }
+        }
         
         /* Tablet: 1024px and below */
         @media (max-width: 1024px) {
@@ -42,6 +72,7 @@ const Navbar = () => {
           
           .logo-text {
             font-size: 1.6rem !important;
+            max-width: 180px !important;
           }
           
           .logo-icon {
@@ -69,6 +100,7 @@ const Navbar = () => {
           
           .logo-text {
             font-size: 1.4rem !important;
+            max-width: 150px !important;
           }
           
           .logo-icon {
@@ -172,6 +204,10 @@ const Navbar = () => {
           background-clip: text;
           text-shadow: 0 2px 10px rgba(255, 255, 255, 0.3);
           transition: all 0.3s ease;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 200px;
         }
 
         .logo-text:hover {
@@ -206,16 +242,55 @@ const Navbar = () => {
           gap: 0.5rem;
         }
 
+        .nav-item::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 50%;
+          width: 0;
+          height: 3px;
+          background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+          background-size: 200% 100%;
+          transform: translateX(-50%);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 2px;
+          opacity: 0;
+        }
+
         .nav-item:hover {
           color: #ffffff;
           background: rgba(102, 126, 234, 0.2);
           transform: translateY(-1px);
         }
 
+        .nav-item:hover::after {
+          width: 80%;
+          opacity: 1;
+          background-position: 100% 0;
+          animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -200% 0;
+          }
+          100% {
+            background-position: 200% 0;
+          }
+        }
+
         .nav-item.active {
           color: #ffffff;
           background: linear-gradient(135deg, rgba(102, 126, 234, 0.3), rgba(118, 75, 162, 0.3));
           box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .nav-item.active::after {
+          width: 80%;
+          opacity: 1;
+          background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+          background-size: 200% 100%;
+          animation: shimmer 2s linear infinite;
         }
 
         .nav-item-icon {
@@ -326,6 +401,96 @@ const Navbar = () => {
           font-size: 1.2rem;
           opacity: 0.8;
         }
+
+        /* Social Media Icons Styles */
+        .social-icons-desktop {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          margin-left: 2rem;
+        }
+
+        .social-icons-mobile {
+          width: 100%;
+        }
+
+        /* Responsive Styles for Social Icons */
+        @media (max-width: 1400px) {
+          .social-icons-desktop {
+            gap: 0.7rem;
+            margin-left: 1.5rem;
+          }
+          
+          .social-icons-desktop .social-icon {
+            width: 33px !important;
+            height: 33px !important;
+            font-size: 0.95rem !important;
+          }
+        }
+
+        @media (max-width: 1200px) {
+          .social-icons-desktop {
+            gap: 0.6rem;
+            margin-left: 1rem;
+          }
+          
+          .social-icons-desktop .social-icon {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 0.9rem !important;
+          }
+        }
+
+        /* Hide social icons on medium/tablet and smaller large screens */
+        @media (max-width: 1440px) and (min-width: 769px) {
+          .social-icons-desktop {
+            display: none;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .social-icons-desktop {
+            display: none;
+          }
+          
+          .social-icons-mobile .social-icon {
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 1rem !important;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .social-icons-mobile .social-icon {
+            width: 36px !important;
+            height: 36px !important;
+            font-size: 0.95rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .social-icons-mobile .social-icon {
+            width: 34px !important;
+            height: 34px !important;
+            font-size: 0.9rem !important;
+          }
+          
+          .social-icons-mobile .social-icon:nth-child(n+4) {
+            display: none;
+          }
+        }
+
+        @media (max-width: 380px) {
+          .social-icons-mobile .social-icon {
+            width: 32px !important;
+            height: 32px !important;
+            font-size: 0.85rem !important;
+          }
+          
+          .social-icons-mobile .social-icon:nth-child(n+3) {
+            display: none;
+          }
+        }
       `}</style>
 
       <motion.nav
@@ -379,6 +544,51 @@ const Navbar = () => {
               ))}
             </div>
 
+            {/* Social Media Icons - Desktop */}
+            <div className="social-icons-desktop">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  title={social.name}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '35px',
+                    height: '35px',
+                    borderRadius: '50%',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    color: 'var(--text-secondary)',
+                    textDecoration: 'none',
+                    fontSize: '1rem',
+                    transition: 'all 0.3s ease',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = social.color;
+                    e.target.style.color = 'white';
+                    e.target.style.borderColor = social.color;
+                    e.target.style.transform = 'scale(1.1) rotate(5deg)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.color = 'var(--text-secondary)';
+                    e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                    e.target.style.transform = 'scale(1) rotate(0deg)';
+                  }}
+                >
+                  {social.icon}
+                </motion.a>
+              ))}
+            </div>
+
             {/* Mobile Menu Button */}
             <button
               className="mobile-menu-btn"
@@ -413,6 +623,74 @@ const Navbar = () => {
                     <span>{item.label}</span>
                   </Link>
                 ))}
+                
+                {/* Social Media Icons - Mobile */}
+                <div className="social-icons-mobile">
+                  <div style={{
+                    padding: '1rem 0',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                    marginTop: '1rem',
+                  }}>
+                    <div style={{
+                      textAlign: 'center',
+                      color: 'var(--text-secondary)',
+                      fontSize: '0.9rem',
+                      marginBottom: '1rem',
+                      fontWeight: '500',
+                    }}>
+                      Follow Me
+                    </div>
+                    <div style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '1rem',
+                      flexWrap: 'wrap',
+                    }}>
+                      {socialLinks.map((social) => (
+                        <motion.a
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setIsOpen(false)}
+                          className="social-icon-mobile"
+                          whileHover={{ scale: 1.2, rotate: 5 }}
+                          whileTap={{ scale: 0.9 }}
+                          title={social.name}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: '40px',
+                            height: '40px',
+                            borderRadius: '50%',
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            color: 'var(--text-secondary)',
+                            textDecoration: 'none',
+                            fontSize: '1.1rem',
+                            transition: 'all 0.3s ease',
+                            backdropFilter: 'blur(10px)',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.background = social.color;
+                            e.target.style.color = 'white';
+                            e.target.style.borderColor = social.color;
+                            e.target.style.transform = 'scale(1.1) rotate(5deg)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                            e.target.style.color = 'var(--text-secondary)';
+                            e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                            e.target.style.transform = 'scale(1) rotate(0deg)';
+                          }}
+                        >
+                          {social.icon}
+                        </motion.a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </motion.div>
             )}
           </AnimatePresence>
