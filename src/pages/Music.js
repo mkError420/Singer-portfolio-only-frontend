@@ -9,6 +9,8 @@ const Music = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(0.7);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const audioRef = useRef(null);
 
   // Static demo albums (original data)
@@ -17,36 +19,39 @@ const Music = () => {
       id: 1,
       title: "Echoes of Emotion",
       year: "2024",
+      category: "album",
       cover: demoImages.albums[1],
       tracks: [
-        { id: 1, title: "Whispers of the Soul", duration: "3:45", artist: "Artist Name" },
-        { id: 2, title: "Midnight Melodies", duration: "4:12", artist: "Artist Name" },
-        { id: 3, title: "Dancing in the Rain", duration: "3:28", artist: "Artist Name" },
-        { id: 4, title: "Heart's Symphony", duration: "5:01", artist: "Artist Name" },
-        { id: 5, title: "Eternal Echoes", duration: "4:33", artist: "Artist Name" },
+        { id: 1, title: "Whispers of the Soul", duration: "3:45", artist: "Artist Name", category: "album" },
+        { id: 2, title: "Midnight Melodies", duration: "4:12", artist: "Artist Name", category: "album" },
+        { id: 3, title: "Dancing in the Rain", duration: "3:28", artist: "Artist Name", category: "album" },
+        { id: 4, title: "Heart's Symphony", duration: "5:01", artist: "Artist Name", category: "album" },
+        { id: 5, title: "Eternal Echoes", duration: "4:33", artist: "Artist Name", category: "album" },
       ]
     },
     {
       id: 2,
       title: "Soulful Journey",
       year: "2022",
+      category: "album",
       cover: demoImages.albums[2],
       tracks: [
-        { id: 6, title: "Journey Begins", duration: "3:15", artist: "Artist Name" },
-        { id: 7, title: "Soul's Awakening", duration: "4:45", artist: "Artist Name" },
-        { id: 8, title: "Rhythms of Life", duration: "3:52", artist: "Artist Name" },
-        { id: 9, title: "Emotional Tides", duration: "4:18", artist: "Artist Name" },
+        { id: 6, title: "Journey Begins", duration: "3:15", artist: "Artist Name", category: "album" },
+        { id: 7, title: "Soul's Awakening", duration: "4:45", artist: "Artist Name", category: "album" },
+        { id: 8, title: "Rhythms of Life", duration: "3:52", artist: "Artist Name", category: "album" },
+        { id: 9, title: "Emotional Tides", duration: "4:18", artist: "Artist Name", category: "album" },
       ]
     },
     {
       id: 3,
       title: "Acoustic Sessions",
       year: "2020",
+      category: "acoustic",
       cover: demoImages.albums[3],
       tracks: [
-        { id: 10, title: "Unplugged Dreams", duration: "3:08", artist: "Artist Name" },
-        { id: 11, title: "Raw Emotions", duration: "4:25", artist: "Artist Name" },
-        { id: 12, title: "Intimate Moments", duration: "3:42", artist: "Artist Name" },
+        { id: 10, title: "Unplugged Dreams", duration: "3:08", artist: "Artist Name", category: "acoustic" },
+        { id: 11, title: "Raw Emotions", duration: "4:25", artist: "Artist Name", category: "acoustic" },
+        { id: 12, title: "Intimate Moments", duration: "3:42", artist: "Artist Name", category: "acoustic" },
       ]
     }
   ];
@@ -58,6 +63,7 @@ const Music = () => {
       title: "New Beginning",
       duration: "3:55",
       artist: "Artist Name",
+      category: "single",
       cover: demoImages.singles[1],
       releaseDate: "2024"
     },
@@ -66,6 +72,7 @@ const Music = () => {
       title: "Summer Vibes",
       duration: "3:22",
       artist: "Artist Name",
+      category: "single",
       cover: demoImages.singles[2],
       releaseDate: "2024"
     },
@@ -74,6 +81,7 @@ const Music = () => {
       title: "Winter's Tale",
       duration: "4:08",
       artist: "Artist Name",
+      category: "single",
       cover: demoImages.singles[3],
       releaseDate: "2023"
     }
@@ -140,6 +148,42 @@ const Music = () => {
     ...singles
   ];
 
+  // Categories for filtering
+  const categories = [
+    { id: 'all', label: 'All Music', icon: '🎵' },
+    { id: 'album', label: 'Albums', icon: '💿' },
+    { id: 'single', label: 'Singles', icon: '🎤' },
+    { id: 'acoustic', label: 'Acoustic', icon: '🎸' },
+  ];
+
+  // Filter tracks based on search term and category
+  const filteredTracks = allTracks.filter(track => {
+    const matchesSearch = track.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         track.artist.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || track.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Filter albums based on search term and category
+  const filteredAlbums = albums.filter(album => {
+    const matchesSearch = album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         album.year.includes(searchTerm) ||
+                         album.tracks.some(track => 
+                           track.title.toLowerCase().includes(searchTerm.toLowerCase())
+                         );
+    const matchesCategory = selectedCategory === 'all' || album.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Filter singles based on search term and category
+  const filteredSingles = singles.filter(single => {
+    const matchesSearch = single.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         single.artist.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         single.releaseDate.includes(searchTerm);
+    const matchesCategory = selectedCategory === 'all' || single.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
   return (
     <>
       <style jsx>{`
@@ -178,11 +222,110 @@ const Music = () => {
               fontSize: '1.2rem',
               color: 'var(--text-secondary)',
               maxWidth: '600px',
-              margin: '0 auto',
+              margin: '0 auto 2rem',
               lineHeight: 1.6,
             }}>
               Explore my discography, from intimate acoustic sessions to powerful orchestral arrangements
             </p>
+            
+            {/* Search Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{
+                maxWidth: '500px',
+                margin: '0 auto',
+                position: 'relative',
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search for songs, albums, or artists..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '1rem 3rem 1rem 1rem',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '50px',
+                  color: 'var(--text-primary)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
+                }}
+                onFocus={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                  e.target.style.borderColor = 'var(--accent-color)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                right: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--text-secondary)',
+                fontSize: '1.2rem',
+              }}>
+                🔍
+              </div>
+            </motion.div>
+            
+            {/* Category Filter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              style={{
+                maxWidth: '600px',
+                margin: '2rem auto 0',
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                justifyContent: 'center',
+              }}>
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      background: selectedCategory === category.id 
+                        ? 'var(--accent-color)' 
+                        : 'rgba(255, 255, 255, 0.1)',
+                      border: selectedCategory === category.id 
+                        ? '1px solid var(--accent-color)' 
+                        : '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '25px',
+                      color: selectedCategory === category.id 
+                        ? 'white' 
+                        : 'var(--text-secondary)',
+                      cursor: 'pointer',
+                      fontSize: '0.9rem',
+                      backdropFilter: 'blur(10px)',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <span>{category.icon}</span>
+                    <span>{category.label}</span>
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -362,7 +505,8 @@ const Music = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
             gap: '2rem',
           }}>
-            {albums.map((album, index) => (
+            {filteredAlbums.length > 0 ? (
+              filteredAlbums.map((album, index) => (
               <motion.div
                 key={album.id}
                 initial={{ opacity: 0, y: 50 }}
@@ -457,7 +601,33 @@ const Music = () => {
                   ))}
                 </div>
               </motion.div>
-            ))}
+            ))
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '3rem',
+                color: 'var(--text-secondary)',
+                gridColumn: '1 / -1'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+                  No albums found matching "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'var(--accent-color)',
+                    border: 'none',
+                    borderRadius: '20px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -488,7 +658,8 @@ const Music = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
             gap: '2rem',
           }}>
-            {singles.map((single, index) => (
+            {filteredSingles.length > 0 ? (
+              filteredSingles.map((single, index) => (
               <motion.div
                 key={single.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -521,7 +692,33 @@ const Music = () => {
                   {currentTrack?.id === single.id && isPlaying ? '⏸ Playing' : '▶ Play'}
                 </button>
               </motion.div>
-            ))}
+            ))
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '3rem',
+                color: 'var(--text-secondary)',
+                gridColumn: '1 / -1'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+                  No singles found matching "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'var(--accent-color)',
+                    border: 'none',
+                    borderRadius: '20px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
