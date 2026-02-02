@@ -734,6 +734,277 @@ const About = () => {
           </div>
         </section>
 
+        {/* Musical Journey Timeline */}
+        <section className="journey-timeline-section" style={{
+          padding: '6rem 0',
+          background: 'linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 50%, #1a1a1a 100%)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Background Pattern */}
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: `
+              radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 70%, rgba(118, 75, 162, 0.1) 0%, transparent 50%),
+              repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,0.02) 35px, rgba(255,255,255,0.02) 70px)
+            `,
+            animation: 'float 20s ease-in-out infinite'
+          }} />
+
+          <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              style={{ textAlign: 'center', marginBottom: '5rem' }}
+            >
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '3.5rem',
+                background: 'linear-gradient(135deg, #667eea, #764ba2, #f093fb)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                marginBottom: '1rem',
+                textShadow: '0 0 30px rgba(102, 126, 234, 0.3)'
+              }}>
+                Musical Journey
+              </h2>
+              <p style={{
+                fontSize: '1.3rem',
+                color: 'var(--text-secondary)',
+                maxWidth: '700px',
+                margin: '0 auto',
+                lineHeight: 1.6
+              }}>
+                Follow the evolution of an artist through milestones, breakthroughs, and transformative moments
+              </p>
+            </motion.div>
+
+            <div className="timeline-container">
+              {/* Timeline Line */}
+              <div className="timeline-line" />
+              
+              {/* Timeline Items */}
+              {[
+                {
+                  year: '2018',
+                  title: 'The Beginning',
+                  description: 'Discovered my passion for music and started performing at local venues',
+                  achievement: 'First Open Mic Performance',
+                  icon: '🎤',
+                  color: '#667eea',
+                  side: 'left'
+                },
+                {
+                  year: '2019',
+                  title: 'Finding My Voice',
+                  description: 'Developed a unique vocal style and began writing original compositions',
+                  achievement: 'First Original Song',
+                  icon: '✍️',
+                  color: '#764ba2',
+                  side: 'right'
+                },
+                {
+                  year: '2020',
+                  title: 'Digital Breakthrough',
+                  description: 'Launched online presence and connected with fans worldwide during the pandemic',
+                  achievement: '10K Online Followers',
+                  icon: '🌐',
+                  color: '#f093fb',
+                  side: 'left'
+                },
+                {
+                  year: '2021',
+                  title: 'First EP Release',
+                  description: 'Released debut EP that showcased my artistic vision and musical range',
+                  achievement: 'Debut EP "Echoes"',
+                  icon: '💿',
+                  color: '#667eea',
+                  side: 'right'
+                },
+                {
+                  year: '2022',
+                  title: 'Touring Artist',
+                  description: 'Embarked on first national tour, performing in major cities across the country',
+                  achievement: '25+ City Tour',
+                  icon: '🚌',
+                  color: '#764ba2',
+                  side: 'left'
+                },
+                {
+                  year: '2023',
+                  title: 'Industry Recognition',
+                  description: 'Received critical acclaim and industry awards for artistic excellence',
+                  achievement: 'Best New Artist Award',
+                  icon: '🏆',
+                  color: '#f093fb',
+                  side: 'right'
+                },
+                {
+                  year: '2024',
+                  title: 'Evolution Continues',
+                  description: 'Currently working on new projects and pushing creative boundaries',
+                  achievement: 'New Album in Progress',
+                  icon: '🚀',
+                  color: '#667eea',
+                  side: 'left'
+                }
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: item.side === 'left' ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className={`timeline-item ${item.side}`}
+                  style={{
+                    display: 'flex',
+                    justifyContent: item.side === 'left' ? 'flex-end' : 'flex-start',
+                    marginBottom: '4rem',
+                    position: 'relative'
+                  }}
+                >
+                  <motion.div
+                    className="timeline-content"
+                    whileHover={{ 
+                      scale: 1.02,
+                      boxShadow: `0 15px 40px ${item.color}40`
+                    }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                    style={{
+                      width: '45%',
+                      background: `linear-gradient(135deg, rgba(${item.color === '#667eea' ? '102, 126, 234' : item.color === '#764ba2' ? '118, 75, 162' : '240, 147, 251'}, 0.1), rgba(${item.color === '#667eea' ? '102, 126, 234' : item.color === '#764ba2' ? '118, 75, 162' : '240, 147, 251'}, 0.05))`,
+                      border: `1px solid ${item.color}40`,
+                      borderRadius: '20px',
+                      padding: '2rem',
+                      position: 'relative',
+                      backdropFilter: 'blur(10px)'
+                    }}
+                  >
+                    {/* Year Badge */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '-15px',
+                      [item.side]: '20px',
+                      background: `linear-gradient(135deg, ${item.color}, ${item.color}cc)`,
+                      color: 'white',
+                      padding: '0.5rem 1rem',
+                      borderRadius: '25px',
+                      fontWeight: 'bold',
+                      fontSize: '0.9rem',
+                      boxShadow: `0 5px 15px ${item.color}60`
+                    }}>
+                      {item.year}
+                    </div>
+
+                    {/* Icon */}
+                    <div style={{
+                      fontSize: '2.5rem',
+                      marginBottom: '1rem',
+                      filter: `drop-shadow(0 0 10px ${item.color}60)`
+                    }}>
+                      {item.icon}
+                    </div>
+
+                    <h3 style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: '1.5rem',
+                      color: 'var(--text-primary)',
+                      marginBottom: '0.5rem',
+                      background: `linear-gradient(135deg, ${item.color}, ${item.color}cc)`,
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent'
+                    }}>
+                      {item.title}
+                    </h3>
+
+                    <p style={{
+                      color: 'var(--text-secondary)',
+                      lineHeight: 1.6,
+                      marginBottom: '1rem'
+                    }}>
+                      {item.description}
+                    </p>
+
+                    <div style={{
+                      display: 'inline-block',
+                      background: `${item.color}20`,
+                      color: item.color,
+                      padding: '0.5rem 1rem',
+                      borderRadius: '15px',
+                      fontSize: '0.85rem',
+                      fontWeight: '500',
+                      border: `1px solid ${item.color}40`
+                    }}>
+                      🎯 {item.achievement}
+                    </div>
+                  </motion.div>
+
+                  {/* Timeline Dot */}
+                  <div
+                    className="timeline-dot"
+                    style={{
+                      position: 'absolute',
+                      left: '50%',
+                      top: '2rem',
+                      transform: 'translateX(-50%)',
+                      width: '20px',
+                      height: '20px',
+                      background: item.color,
+                      borderRadius: '50%',
+                      border: '4px solid var(--secondary-color)',
+                      boxShadow: `0 0 20px ${item.color}80`,
+                      zIndex: 3
+                    }}
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <style jsx>{`
+            @keyframes float {
+              0%, 100% { transform: translateY(0px); }
+              50% { transform: translateY(-20px); }
+            }
+
+            .timeline-line {
+              position: absolute;
+              left: 50%;
+              top: 0;
+              bottom: 0;
+              width: '2px';
+              background: 'linear-gradient(180deg, #667eea, #764ba2, #f093fb, #667eea)';
+              transform: 'translateX(-50%)';
+              z-index: 1;
+            }
+
+            @media (max-width: 768px) {
+              .timeline-item {
+                justify-content: center !important;
+              }
+              
+              .timeline-item .timeline-content {
+                width: 90%;
+              }
+              
+              .timeline-dot {
+                left: 20px !important;
+              }
+              
+              .timeline-line {
+                left: 30px;
+              }
+            }
+          `}</style>
+        </section>
+
         {/* Call to Action */}
         <section className="cta-section" style={{
           padding: '6rem 0',
