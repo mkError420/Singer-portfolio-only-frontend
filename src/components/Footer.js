@@ -273,6 +273,183 @@ const Footer = () => {
           .copyright p {
             margin: 0;
           }
+
+          /* Latest Release Section */
+          .latest-release-section {
+            grid-column: span 1;
+          }
+
+          .release-card {
+            background: linear-gradient(135deg, var(--card-bg), rgba(102, 126, 234, 0.05));
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+          }
+
+          .release-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-color), #764ba2, var(--accent-color));
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+          }
+
+          @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+          }
+
+          .release-cover {
+            position: relative;
+            flex-shrink: 0;
+          }
+
+          .release-cover-placeholder {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), #764ba2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+          }
+
+          .release-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+          }
+
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+          }
+
+          .release-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+
+          .release-title {
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0 0 0.25rem 0;
+            font-family: 'Playfair Display', serif;
+          }
+
+          .release-artist {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin: 0 0 0.5rem 0;
+          }
+
+          .release-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+          }
+
+          .release-year,
+          .release-tracks {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+          }
+
+          .release-separator {
+            color: var(--border-color);
+            font-size: 0.8rem;
+          }
+
+          .release-actions {
+            display: flex;
+            gap: 0.5rem;
+          }
+
+          .release-btn {
+            padding: 0.4rem 0.8rem;
+            border: none;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+          }
+
+          .release-btn.primary {
+            background: linear-gradient(135deg, var(--accent-color), #764ba2);
+            color: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+          }
+
+          .release-btn.primary:hover {
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            transform: translateY(-1px);
+          }
+
+          .release-btn.secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+          }
+
+          .release-btn.secondary:hover {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            color: white;
+          }
+
+          /* Responsive adjustments for Latest Release */
+          @media (max-width: 575px) {
+            .release-card {
+              flex-direction: column;
+              text-align: center;
+            }
+
+            .release-cover-placeholder {
+              width: 80px;
+              height: 80px;
+              margin: 0 auto;
+            }
+
+            .release-actions {
+              flex-direction: column;
+            }
+
+            .release-btn {
+              width: 100%;
+            }
+          }
+
+          @media (min-width: 576px) and (max-width: 767px) {
+            .latest-release-section {
+              grid-column: span 2;
+            }
+          }
         `}
       </style>
 
@@ -307,6 +484,51 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+            </div>
+
+            {/* Latest Release */}
+            <div className="latest-release-section">
+              <h4 className="section-title">Latest Release</h4>
+              <motion.div 
+                className="release-card"
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: '0 10px 30px rgba(102, 126, 234, 0.3)'
+                }}
+                transition={{ type: 'spring', stiffness: 300 }}
+              >
+                <div className="release-cover">
+                  <div className="release-cover-placeholder">
+                    <span className="release-icon">🎵</span>
+                  </div>
+                  <div className="release-badge">NEW</div>
+                </div>
+                <div className="release-info">
+                  <h5 className="release-title">Midnight Dreams</h5>
+                  <p className="release-artist">Artist Name</p>
+                  <div className="release-meta">
+                    <span className="release-year">2024</span>
+                    <span className="release-separator">•</span>
+                    <span className="release-tracks">12 Tracks</span>
+                  </div>
+                  <div className="release-actions">
+                    <motion.button 
+                      className="release-btn primary"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Listen Now
+                    </motion.button>
+                    <motion.button 
+                      className="release-btn secondary"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Add to Playlist
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.div>
             </div>
 
             {/* Social Media */}
