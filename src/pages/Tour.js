@@ -72,15 +72,6 @@ const Tour = () => {
     ? tourDates 
     : tourDates.filter(date => date.status === filter);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
-    });
-  };
 
   const isSoldOut = (tourDate) => {
     return tourDate.special === 'Sold Out';

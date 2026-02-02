@@ -218,7 +218,6 @@ const About = () => {
                 <div style={{
                   width: '90%',
                   height: '90%',
-                  background: 'linear-gradient(135deg, #0f0f0f, #1a1a1a)',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',

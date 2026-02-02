@@ -107,7 +107,6 @@ const Videos = () => {
     }
   ];
 
-  const allVideos = [...musicVideos, ...livePerformances, ...behindTheScenes];
 
   const openVideoModal = (video) => {
     setSelectedVideo(video);

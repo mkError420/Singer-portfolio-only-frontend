@@ -6,7 +6,6 @@ import ButtonStyles from '../styles/ButtonStyles';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -358,8 +357,6 @@ const Navbar = () => {
                   key={item.path}
                   to={item.path}
                   className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-                  onMouseEnter={() => setHoveredItem(item.path)}
-                  onMouseLeave={() => setHoveredItem(null)}
                 >
                   <span className="nav-item-icon">{item.icon}</span>
                   <span>{item.label}</span>
