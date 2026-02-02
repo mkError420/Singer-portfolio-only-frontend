@@ -156,14 +156,6 @@ const Music = () => {
     { id: 'acoustic', label: 'Acoustic', icon: '🎸' },
   ];
 
-  // Filter tracks based on search term and category
-  const filteredTracks = allTracks.filter(track => {
-    const matchesSearch = track.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         track.artist.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || track.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
   // Filter albums based on search term and category
   const filteredAlbums = albums.filter(album => {
     const matchesSearch = album.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
