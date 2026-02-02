@@ -4,6 +4,8 @@ import { demoImages } from '../config/demoImages';
 
 const Videos = () => {
   const [selectedVideo, setSelectedVideo] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   // Static demo music videos
   const musicVideos = [
@@ -15,7 +17,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ", // YouTube video ID
       duration: "4:32",
       views: "1.2M",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "music"
     },
     {
       id: 2,
@@ -25,7 +28,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "3:45",
       views: "856K",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "music"
     },
     {
       id: 3,
@@ -35,7 +39,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "3:28",
       views: "2.1M",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "music"
     }
   ];
 
@@ -49,7 +54,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "15:20",
       views: "3.5M",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "live"
     },
     {
       id: 5,
@@ -59,7 +65,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "22:15",
       views: "1.8M",
-      releaseDate: "2023"
+      releaseDate: "2023",
+      category: "acoustic"
     },
     {
       id: 6,
@@ -69,7 +76,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "45:00",
       views: "5.2M",
-      releaseDate: "2023"
+      releaseDate: "2023",
+      category: "live"
     }
   ];
 
@@ -83,7 +91,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "12:30",
       views: "445K",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "behind"
     },
     {
       id: 8,
@@ -93,7 +102,8 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "8:30",
       views: "189K",
-      releaseDate: "2024"
+      releaseDate: "2024",
+      category: "behind"
     },
     {
       id: 9,
@@ -103,9 +113,52 @@ const Videos = () => {
       videoId: "dQw4w9WgXcQ",
       duration: "15:20",
       views: "445K",
-      releaseDate: "2023"
+      releaseDate: "2023",
+      category: "behind"
     }
   ];
+
+  // Categories for filtering
+  const categories = [
+    { id: 'all', label: 'All Videos', icon: '🎬' },
+    { id: 'music', label: 'Music Videos', icon: '🎵' },
+    { id: 'live', label: 'Live Performances', icon: '🎤' },
+    { id: 'acoustic', label: 'Acoustic', icon: '🎸' },
+    { id: 'behind', label: 'Behind Scenes', icon: '🎥' },
+  ];
+
+  // Combine all videos
+  const allVideos = [...musicVideos, ...livePerformances, ...behindTheScenes];
+
+  // Filter videos based on search term and category
+  const filteredVideos = allVideos.filter(video => {
+    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Filter individual categories for display
+  const filteredMusicVideos = musicVideos.filter(video => {
+    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const filteredLivePerformances = livePerformances.filter(video => {
+    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
+
+  const filteredBehindTheScenes = behindTheScenes.filter(video => {
+    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
 
   const openVideoModal = (video) => {
@@ -143,11 +196,110 @@ const Videos = () => {
               fontSize: '1.2rem',
               color: 'var(--text-secondary)',
               maxWidth: '600px',
-              margin: '0 auto',
+              margin: '0 auto 2rem',
               lineHeight: 1.6,
             }}>
               Music videos, live performances, and exclusive behind-the-scenes content
             </p>
+            
+            {/* Search Bar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{
+                maxWidth: '500px',
+                margin: '0 auto',
+                position: 'relative',
+              }}
+            >
+              <input
+                type="text"
+                placeholder="Search for videos..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={{
+                  width: '100%',
+                  padding: '1rem 3rem 1rem 1rem',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  borderRadius: '50px',
+                  color: 'var(--text-primary)',
+                  fontSize: '1rem',
+                  outline: 'none',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
+                }}
+                onFocus={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.15)';
+                  e.target.style.borderColor = 'var(--accent-color)';
+                }}
+                onBlur={(e) => {
+                  e.target.style.background = 'rgba(255, 255, 255, 0.1)';
+                  e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
+                }}
+              />
+              <div style={{
+                position: 'absolute',
+                right: '1rem',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                color: 'var(--text-secondary)',
+                fontSize: '1.2rem',
+              }}>
+                🔍
+              </div>
+            </motion.div>
+            
+            {/* Category Filter */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              style={{
+                maxWidth: '600px',
+                margin: '2rem auto 0',
+              }}
+            >
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '0.5rem',
+                justifyContent: 'center',
+              }}>
+                {categories.map((category) => (
+                  <motion.button
+                    key={category.id}
+                    onClick={() => setSelectedCategory(category.id)}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{
+                      padding: '0.5rem 1rem',
+                      background: selectedCategory === category.id 
+                        ? 'var(--accent-color)' 
+                        : 'rgba(255, 255, 255, 0.1)',
+                      border: selectedCategory === category.id 
+                        ? '1px solid var(--accent-color)' 
+                        : '1px solid rgba(255, 255, 255, 0.2)',
+                      borderRadius: '25px',
+                      color: selectedCategory === category.id 
+                        ? 'white' 
+                        : 'var(--text-secondary)',
+                      cursor: 'pointer',
+                      fontSize: '0.9rem',
+                      backdropFilter: 'blur(10px)',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <span>{category.icon}</span>
+                    <span>{category.label}</span>
+                  </motion.button>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -178,7 +330,8 @@ const Videos = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
             gap: '2rem',
           }}>
-            {musicVideos.map((video, index) => (
+            {filteredMusicVideos.length > 0 ? (
+              filteredMusicVideos.map((video, index) => (
               <motion.div
                 key={video.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -189,59 +342,71 @@ const Videos = () => {
                 style={{ cursor: 'pointer' }}
                 onClick={() => openVideoModal(video)}
               >
-                <div style={{ position: 'relative', marginBottom: '1rem' }}>
+                <div style={{ position: 'relative', paddingBottom: '56.25%', overflow: 'hidden', borderRadius: '12px' }}>
                   <img
                     src={video.thumbnail}
                     alt={video.title}
                     style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
                       width: '100%',
-                      borderRadius: '10px',
-                      aspectRatio: '16/9',
+                      height: '100%',
                       objectFit: 'cover',
                     }}
                   />
                   <div style={{
                     position: 'absolute',
-                    bottom: '10px',
-                    right: '10px',
+                    bottom: '1rem',
+                    right: '1rem',
                     background: 'rgba(0, 0, 0, 0.8)',
                     color: 'white',
-                    padding: '4px 8px',
+                    padding: '0.25rem 0.5rem',
                     borderRadius: '4px',
                     fontSize: '0.8rem',
                   }}>
                     {video.duration}
                   </div>
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    background: 'rgba(0, 0, 0, 0.7)',
-                    color: 'white',
-                    width: '60px',
-                    height: '60px',
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '1.5rem',
-                    transition: 'all 0.3s ease',
-                  }}>
-                    ▶
-                  </div>
                 </div>
-                <h3 style={{ color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>
-                  {video.title}
-                </h3>
-                <p style={{ color: 'var(--text-secondary)', margin: '0 0 0.5rem', fontSize: '0.9rem' }}>
-                  {video.views} views • {video.releaseDate}
-                </p>
-                <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.85rem' }}>
-                  {video.description}
-                </p>
+                <div style={{ padding: '1.5rem' }}>
+                  <h3 style={{ color: 'var(--text-primary)', margin: '0 0 0.5rem' }}>
+                    {video.title}
+                  </h3>
+                  <p style={{ color: 'var(--text-secondary)', margin: '0 0 0.5rem', fontSize: '0.9rem' }}>
+                    {video.views} views • {video.releaseDate}
+                  </p>
+                  <p style={{ color: 'var(--text-muted)', margin: 0, fontSize: '0.85rem' }}>
+                    {video.description}
+                  </p>
+                </div>
               </motion.div>
-            ))}
+            ))
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '3rem',
+                color: 'var(--text-secondary)',
+                gridColumn: '1 / -1'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+                  No music videos found matching "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'var(--accent-color)',
+                    border: 'none',
+                    borderRadius: '20px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -272,7 +437,8 @@ const Videos = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
             gap: '2rem',
           }}>
-            {livePerformances.map((video, index) => (
+            {filteredLivePerformances.length > 0 ? (
+              filteredLivePerformances.map((video, index) => (
               <motion.div
                 key={video.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -335,7 +501,33 @@ const Videos = () => {
                   {video.description}
                 </p>
               </motion.div>
-            ))}
+            ))
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '3rem',
+                color: 'var(--text-secondary)',
+                gridColumn: '1 / -1'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+                  No live performances found matching "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'var(--accent-color)',
+                    border: 'none',
+                    borderRadius: '20px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -366,7 +558,8 @@ const Videos = () => {
             gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
             gap: '2rem',
           }}>
-            {behindTheScenes.map((video, index) => (
+            {filteredBehindTheScenes.length > 0 ? (
+              filteredBehindTheScenes.map((video, index) => (
               <motion.div
                 key={video.id}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -429,7 +622,33 @@ const Videos = () => {
                   {video.description}
                 </p>
               </motion.div>
-            ))}
+            ))
+            ) : (
+              <div style={{
+                textAlign: 'center',
+                padding: '3rem',
+                color: 'var(--text-secondary)',
+                gridColumn: '1 / -1'
+              }}>
+                <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>
+                  No behind the scenes videos found matching "{searchTerm}"
+                </p>
+                <button
+                  onClick={() => setSearchTerm('')}
+                  style={{
+                    padding: '0.5rem 1rem',
+                    background: 'var(--accent-color)',
+                    border: 'none',
+                    borderRadius: '20px',
+                    color: 'white',
+                    cursor: 'pointer',
+                    fontSize: '0.9rem'
+                  }}
+                >
+                  Clear Search
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </section>
