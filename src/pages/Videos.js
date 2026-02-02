@@ -127,17 +127,6 @@ const Videos = () => {
     { id: 'behind', label: 'Behind Scenes', icon: '🎥' },
   ];
 
-  // Combine all videos
-  const allVideos = [...musicVideos, ...livePerformances, ...behindTheScenes];
-
-  // Filter videos based on search term and category
-  const filteredVideos = allVideos.filter(video => {
-    const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         video.description.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || video.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
-
   // Filter individual categories for display
   const filteredMusicVideos = musicVideos.filter(video => {
     const matchesSearch = video.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
