@@ -207,8 +207,41 @@ const Home = () => {
       <section className="events-preview" style={{
         padding: '5rem 0',
         background: 'var(--secondary-color)',
+        position: 'relative',
+        overflow: 'hidden',
       }}>
-        <div className="container">
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 1,
+            opacity: 0.3,
+          }}
+        >
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Overlay for better text readability */}
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(42, 42, 42, 0.8) 100%)',
+          zIndex: 2,
+        }} />
+        <div className="container" style={{ position: 'relative', zIndex: 3 }}>
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
