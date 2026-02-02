@@ -156,8 +156,9 @@ const Music = () => {
       {/* Hero Section */}
       <section className="music-hero" style={{
         padding: '8rem 0 4rem',
-        background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+        background: 'linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(42, 42, 42, 0.9) 100%), url("https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=1920&h=800&fit=crop&crop=entropy&auto=format") center/cover',
         textAlign: 'center',
+        position: 'relative',
       }}>
         <div className="container">
           <motion.div

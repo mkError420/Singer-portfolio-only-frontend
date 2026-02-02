@@ -1008,7 +1008,7 @@ const About = () => {
         {/* Call to Action */}
         <section className="cta-section" style={{
           padding: '6rem 0',
-          background: 'linear-gradient(135deg, #4a69bd 0%, #1e3799 40%, #667eea 70%, #764ba2 100%)',
+          background: 'linear-gradient(135deg, #343b50ff 0%, #1f2a53ff 40%, #2f2f31ff 70%, #251931ff 100%)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
