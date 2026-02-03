@@ -267,7 +267,7 @@ const Home = () => {
               {
                 title: "Midnight Melodies",
                 artist: "Artist Name", 
-                image: demoImages.albums[2],
+                image: demoImages.singles[1],
                 year: "2024",
                 type: "Single"
               },
