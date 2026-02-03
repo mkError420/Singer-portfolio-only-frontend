@@ -225,6 +225,420 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Featured Music Section */}
+      <section className="featured-music" style={{
+        padding: '5rem 0',
+        background: 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)',
+      }}>
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginBottom: '3rem' }}
+          >
+            <h2 style={{ 
+              color: 'var(--text-primary)', 
+              marginBottom: '1rem',
+              fontFamily: "'Playfair Display', serif",
+              fontSize: '2.5rem'
+            }}>
+              Featured Music
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+              Discover my latest tracks and albums
+            </p>
+          </motion.div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '2rem',
+          }}>
+            {[
+              {
+                title: "Echoes of Emotion",
+                artist: "Artist Name",
+                image: demoImages.albums[0],
+                year: "2024",
+                type: "Album"
+              },
+              {
+                title: "Midnight Melodies",
+                artist: "Artist Name", 
+                image: demoImages.albums[1],
+                year: "2024",
+                type: "Single"
+              },
+              {
+                title: "Acoustic Sessions",
+                artist: "Artist Name",
+                image: demoImages.albums[2],
+                year: "2023",
+                type: "EP"
+              }
+            ].map((music, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                className="card"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  borderRadius: '15px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <div style={{ position: 'relative', paddingBottom: '100%', overflow: 'hidden' }}>
+                  <img
+                    src={music.image}
+                    alt={music.title}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '1rem',
+                    right: '1rem',
+                    background: 'var(--accent-color)',
+                    color: 'white',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '20px',
+                    fontSize: '0.8rem',
+                    fontWeight: '500',
+                  }}>
+                    {music.type}
+                  </div>
+                </div>
+                <div style={{ padding: '1.5rem' }}>
+                  <h3 style={{ 
+                    color: 'var(--text-primary)', 
+                    marginBottom: '0.5rem',
+                    fontSize: '1.2rem'
+                  }}>
+                    {music.title}
+                  </h3>
+                  <p style={{ 
+                    color: 'var(--text-secondary)', 
+                    marginBottom: '0.5rem',
+                    fontSize: '0.9rem'
+                  }}>
+                    {music.artist} • {music.year}
+                  </p>
+                  <Link 
+                    to="/music"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      color: 'var(--accent-color)',
+                      textDecoration: 'none',
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#ffffff';
+                      e.target.style.transform = 'translateX(5px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = 'var(--accent-color)';
+                      e.target.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    Listen Now →
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginTop: '3rem' }}
+          >
+            <Link 
+              to="/music"
+              className="btn btn-primary"
+              style={{
+                padding: '1rem 2rem',
+                background: 'var(--accent-color)',
+                border: 'none',
+                borderRadius: '50px',
+                color: 'white',
+                textDecoration: 'none',
+                fontSize: '1rem',
+                fontWeight: '500',
+                transition: 'all 0.3s ease',
+                display: 'inline-block',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#ffffff';
+                e.target.style.color = 'var(--accent-color)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'var(--accent-color)';
+                e.target.style.color = 'white';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              View All Music
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Videos Section */}
+      <section className="featured-videos" style={{
+        padding: '5rem 0',
+        background: 'var(--primary-color)',
+      }}>
+        <div className="container">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginBottom: '3rem' }}
+          >
+            <h2 style={{ 
+              color: 'var(--text-primary)', 
+              marginBottom: '1rem',
+              fontFamily: "'Playfair Display', serif",
+              fontSize: '2.5rem'
+            }}>
+              Featured Videos
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem' }}>
+              Watch music videos, live performances, and exclusive content
+            </p>
+          </motion.div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: '2rem',
+          }}>
+            {[
+              {
+                title: "Echoes of Emotion",
+                description: "Official music video for the title track",
+                thumbnail: demoImages.videos.music1,
+                duration: "4:32",
+                views: "1.2M",
+                type: "Music Video"
+              },
+              {
+                title: "Live at Madison Square",
+                description: "Full concert performance from the world tour",
+                thumbnail: demoImages.videos.live1,
+                duration: "15:20",
+                views: "3.5M",
+                type: "Live Performance"
+              },
+              {
+                title: "Behind the Scenes",
+                description: "Making of the latest album",
+                thumbnail: demoImages.videos.behind1,
+                duration: "12:30",
+                views: "445K",
+                type: "Behind Scenes"
+              }
+            ].map((video, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -5 }}
+                className="card"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  borderRadius: '15px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                <div style={{ position: 'relative', paddingBottom: '56.25%', overflow: 'hidden' }}>
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    top: '1rem',
+                    right: '1rem',
+                    background: 'rgba(0, 0, 0, 0.8)',
+                    color: 'white',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '4px',
+                    fontSize: '0.8rem',
+                  }}>
+                    {video.duration}
+                  </div>
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '1rem',
+                    left: '1rem',
+                    background: 'var(--accent-color)',
+                    color: 'white',
+                    padding: '0.25rem 0.75rem',
+                    borderRadius: '20px',
+                    fontSize: '0.8rem',
+                    fontWeight: '500',
+                  }}>
+                    {video.type}
+                  </div>
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '60px',
+                    height: '60px',
+                    background: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.background = 'var(--accent-color)';
+                    e.target.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.background = 'rgba(255, 255, 255, 0.9)';
+                    e.target.style.transform = 'translate(-50%, -50%) scale(1)';
+                  }}
+                  >
+                    <div style={{
+                      width: 0,
+                      height: 0,
+                      borderLeft: '15px solid var(--primary-color)',
+                      borderTop: '10px solid transparent',
+                      borderBottom: '10px solid transparent',
+                      marginLeft: '3px',
+                    }} />
+                  </div>
+                </div>
+                <div style={{ padding: '1.5rem' }}>
+                  <h3 style={{ 
+                    color: 'var(--text-primary)', 
+                    marginBottom: '0.5rem',
+                    fontSize: '1.2rem'
+                  }}>
+                    {video.title}
+                  </h3>
+                  <p style={{ 
+                    color: 'var(--text-secondary)', 
+                    marginBottom: '0.5rem',
+                    fontSize: '0.9rem',
+                    lineHeight: 1.4
+                  }}>
+                    {video.description}
+                  </p>
+                  <p style={{ 
+                    color: 'var(--text-muted)', 
+                    fontSize: '0.85rem',
+                    marginBottom: '1rem'
+                  }}>
+                    {video.views} views
+                  </p>
+                  <Link 
+                    to="/videos"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      color: 'var(--accent-color)',
+                      textDecoration: 'none',
+                      fontSize: '0.9rem',
+                      fontWeight: '500',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.color = '#ffffff';
+                      e.target.style.transform = 'translateX(5px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.color = 'var(--accent-color)';
+                      e.target.style.transform = 'translateX(0)';
+                    }}
+                  >
+                    Watch Now →
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            style={{ textAlign: 'center', marginTop: '3rem' }}
+          >
+            <Link 
+              to="/videos"
+              className="btn btn-primary"
+              style={{
+                padding: '1rem 2rem',
+                background: 'var(--accent-color)',
+                border: 'none',
+                borderRadius: '50px',
+                color: 'white',
+                textDecoration: 'none',
+                fontSize: '1rem',
+                fontWeight: '500',
+                transition: 'all 0.3s ease',
+                display: 'inline-block',
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#ffffff';
+                e.target.style.color = 'var(--accent-color)';
+                e.target.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = 'var(--accent-color)';
+                e.target.style.color = 'white';
+                e.target.style.transform = 'translateY(0)';
+              }}
+            >
+              View All Videos
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Upcoming Events Preview */}
       <section className="events-preview" style={{
         padding: '5rem 0',
