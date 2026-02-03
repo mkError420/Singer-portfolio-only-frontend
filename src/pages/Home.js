@@ -260,21 +260,21 @@ const Home = () => {
               {
                 title: "Echoes of Emotion",
                 artist: "Artist Name",
-                image: demoImages.albums[0],
+                image: demoImages.albums[1],
                 year: "2024",
                 type: "Album"
               },
               {
                 title: "Midnight Melodies",
                 artist: "Artist Name", 
-                image: demoImages.albums[1],
+                image: demoImages.albums[2],
                 year: "2024",
                 type: "Single"
               },
               {
                 title: "Acoustic Sessions",
                 artist: "Artist Name",
-                image: demoImages.albums[2],
+                image: demoImages.albums[3],
                 year: "2023",
                 type: "EP"
               }
